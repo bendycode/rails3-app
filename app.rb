@@ -28,6 +28,10 @@ gem 'awesome_print'
 gem 'looksee'
 gem 'wirble'
 
+group :development do
+  gem 'web-app-theme-rails'
+end
+
 group :test do
   gem 'factory_girl_rails', '>= 1.0.0'
   gem 'rspec-rails', '>= 2.0.0.beta.12'
@@ -51,6 +55,7 @@ generators = <<-GENERATORS
     config.generators do |g|
       g.test_framework :rspec, :fixture => true, :views => false
       g.integration_tool :rspec, :fixture => true, :views => true
+      g.template_engine 'web_app_theme'
     end
 GENERATORS
 
@@ -64,20 +69,7 @@ gsub_file 'config/application.rb', 'config.action_view.javascript_expansions[:de
 
 run "cp config/database.yml config/database.yml.example"
 
-layout = <<-LAYOUT
-!!!
-%html
-  %head
-    %title #{app_name.humanize}
-    = stylesheet_link_tag :all
-    = javascript_include_tag :defaults
-    = csrf_meta_tag
-  %body
-    = yield
-LAYOUT
-
 remove_file "app/views/layouts/application.html.erb"
-create_file "app/views/layouts/application.html.haml", layout
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
@@ -96,6 +88,7 @@ Run the following commands to complete the setup of #{app_name.humanize}:
 % gem install bundler --pre
 % bundle install
 % script/rails generate rspec:install
+% script/rails generate web_app_theme:layout
 
 DOCS
 
