@@ -30,6 +30,10 @@ gem 'awesome_print'
 gem 'looksee'
 gem 'wirble'
 
+group :development do
+  gem 'web-app-theme-rails'
+end
+
 group :test, :cucumber do
   gem 'capybara', '>= 0.3.8'
   gem 'cucumber-rails', '>= 0.3.2'
@@ -58,6 +62,7 @@ generators = <<-GENERATORS
     config.generators do |g|
       g.test_framework :rspec, :fixture => true, :views => false
       g.intergration_tool :rspec
+      g.template_engine 'web_app_theme'
     end
 GENERATORS
 
@@ -71,20 +76,7 @@ gsub_file 'config/application.rb', 'config.action_view.javascript_expansions[:de
 
 run "cp config/database.yml config/database.yml.example"
 
-layout = <<-LAYOUT
-!!!
-%html
-  %head
-    %title #{app_name.humanize}
-    = stylesheet_link_tag :all
-    = javascript_include_tag :defaults
-    = csrf_meta_tag
-  %body
-    = yield
-LAYOUT
-
 remove_file "app/views/layouts/application.html.erb"
-create_file "app/views/layouts/application.html.haml", layout
 
 create_file "log/.gitkeep"
 create_file "tmp/.gitkeep"
@@ -104,6 +96,7 @@ Run the following commands to complete the setup of #{app_name.humanize}:
 % bundle install
 % script/rails generate rspec:install
 % script/rails generate cucumber:install --rspec --capybara
+% script/rails generate web_app_theme:layout
 
 DOCS
 
