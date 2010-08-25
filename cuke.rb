@@ -91,12 +91,12 @@ Uncomment the gem that corresponds to your Ruby version
 
 Run the following commands to complete the setup of #{app_name.humanize}:
 
-% cd #{app_name}
-% gem install bundler --pre
-% bundle install
-% script/rails generate rspec:install
-% script/rails generate cucumber:install --rspec --capybara
-% script/rails generate web_app_theme:layout
+cd #{app_name}
+gem install bundler --pre
+bundle install
+script/rails generate rspec:install
+script/rails generate cucumber:install --rspec --capybara
+script/rails generate web_app_theme:layout
 
 DOCS
 
