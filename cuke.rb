@@ -96,7 +96,7 @@ gem install bundler --pre
 bundle install
 script/rails generate rspec:install
 script/rails generate cucumber:install --rspec --capybara
-script/rails generate web_app_theme:layout
+script/rails generate web_app_theme:layout --app-name=#{app_name.humanize} --theme=bec
 
 DOCS
 
